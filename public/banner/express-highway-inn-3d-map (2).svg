@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="3000" height="2200" viewBox="0 0 3000 2200" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="backgroundGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f9fafb" />
+    </linearGradient>
+    
+    <linearGradient id="buildingGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f3f4f6" />
+    </linearGradient>
+    
+    <linearGradient id="roofGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+    
+    <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    
+    <filter id="goldGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    
+    <filter id="buildingShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="8" dy="14" stdDeviation="8" flood-color="#000000" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#backgroundGradient)" />
+  
+  <g id="grid">
+    <line x1="100" y1="0" x2="100" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="200" y1="0" x2="200" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="300" y1="0" x2="300" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="400" y1="0" x2="400" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="500" y1="0" x2="500" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="600" y1="0" x2="600" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="700" y1="0" x2="700" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="800" y1="0" x2="800" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="900" y1="0" x2="900" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="1000" y1="0" x2="1000" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="1100" y1="0" x2="1100" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="1200" y1="0" x2="1200" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="1300" y1="0" x2="1300" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="1400" y1="0" x2="1400" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="1500" y1="0" x2="1500" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="1600" y1="0" x2="1600" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="1700" y1="0" x2="1700" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="1800" y1="0" x2="1800" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="1900" y1="0" x2="1900" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="2000" y1="0" x2="2000" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="2100" y1="0" x2="2100" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="2200" y1="0" x2="2200" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="2300" y1="0" x2="2300" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="2400" y1="0" x2="2400" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="2500" y1="0" x2="2500" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="2600" y1="0" x2="2600" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="2700" y1="0" x2="2700" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="2800" y1="0" x2="2800" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="2900" y1="0" x2="2900" y2="2200" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="100" x2="3000" y2="100" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="200" x2="3000" y2="200" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="300" x2="3000" y2="300" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="400" x2="3000" y2="400" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="500" x2="3000" y2="500" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="600" x2="3000" y2="600" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="700" x2="3000" y2="700" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="800" x2="3000" y2="800" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="900" x2="3000" y2="900" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="1000" x2="3000" y2="1000" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="1100" x2="3000" y2="1100" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="1200" x2="3000" y2="1200" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="1300" x2="3000" y2="1300" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="1400" x2="3000" y2="1400" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="1500" x2="3000" y2="1500" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="1600" x2="3000" y2="1600" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="1700" x2="3000" y2="1700" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="1800" x2="3000" y2="1800" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="1900" x2="3000" y2="1900" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="2000" x2="3000" y2="2000" stroke="#f3f4f6" stroke-width="1" /><line x1="0" y1="2100" x2="3000" y2="2100" stroke="#f3f4f6" stroke-width="1" />
+  </g>
+
+  <g id="parks"></g>
+  <g id="water"></g>
+  <g id="roads"></g>
+  
+  <g id="buildings" filter="url(#buildingShadow)"></g>
+  <g id="express-highway-inn">
+        <g>
+          <circle cx="2160.6293413836347" cy="1388.402621501383" r="34" fill="none" stroke="#2563eb" stroke-width="1" opacity="0.18" />
+          <circle cx="2160.6293413836347" cy="1388.402621501383" r="23" fill="none" stroke="#2563eb" stroke-width="1.2" opacity="0.35" />
+          <circle cx="2160.6293413836347" cy="1388.402621501383" r="10" fill="#2563eb" opacity="0.18" />
+          <circle cx="2160.6293413836347" cy="1388.402621501383" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2" filter="url(#goldGlow)" />
+          <circle cx="2160.6293413836347" cy="1388.402621501383" r="2" fill="#ffffff" />
+          
+          <rect x="2082.6293413836347" y="1404.402621501383" width="156" height="24" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="0.7" opacity="0.95" />
+          <text x="2160.6293413836347" y="1419.402621501383" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#2563eb">
+            EXPRESS HIGHWAY INN
+          </text>
+        </g>
+      </g>
+
+  <rect x="25" y="25" width="2950" height="2150" rx="12" fill="none" stroke="url(#goldGradient)" stroke-width="2" opacity="0.65" />
+
+  <g fill="none" stroke="#2563eb" stroke-width="2" opacity="0.75">
+    <path d="M 25 90 L 25 25 L 90 25" />
+    <path d="M 2910 25 L 2975 25 L 2975 90" />
+    <path d="M 25 2110 L 25 2175 L 90 2175" />
+    <path d="M 2910 2175 L 2975 2175 L 2975 2110" />
+  </g>
+
+  <text x="70" y="2130" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="3" fill="#2563eb">EXPRESS HIGHWAY INN</text>
+  <text x="70" y="2152" font-family="Arial, Helvetica, sans-serif" font-size="8" letter-spacing="2" fill="#6b7280">PREMIUM HIGHWAY HOSPITALITY</text>
+</svg>

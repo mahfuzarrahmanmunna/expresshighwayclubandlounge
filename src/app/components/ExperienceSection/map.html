@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Express Highway Inn — Professional 3D Vector Map</title>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <!-- Leaflet Draw -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      color: #1f2937;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+    }
+
+    /* =========================================================
+       PROFESSIONAL CONTROL PANEL
+    ========================================================= */
+
+    .panel {
+      position: fixed;
+      z-index: 9999;
+      top: 24px;
+      left: 24px;
+      width: 360px;
+      padding: 28px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #2563eb;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: #2563eb;
+      border-radius: 2px;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      margin-bottom: 8px;
+      color: #111827;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.65;
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* =========================================================
+       SEARCH
+    ========================================================= */
+
+    .search {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    input {
+      width: 100%;
+      height: 46px;
+      padding: 0 16px;
+      border-radius: 10px;
+      outline: none;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      color: #111827;
+      font-size: 13px;
+      transition: all 0.3s ease;
+    }
+
+    input::placeholder {
+      color: #9ca3af;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      background: #ffffff;
+    }
+
+    button {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .search button {
+      min-width: 64px;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .search button:hover {
+      transform: translateY(-2px);
+      background: #1d4ed8;
+      box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+    }
+
+    /* =========================================================
+       LOCATION BUTTON
+    ========================================================= */
+
+    .location-btn {
+      width: 100%;
+      height: 46px;
+      margin-bottom: 12px;
+      background: #f3f4f6;
+      color: #374151;
+      border: 1px solid #e5e7eb;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .location-btn:hover {
+      background: #e5e7eb;
+      border-color: #d1d5db;
+    }
+
+    /* =========================================================
+       EXPORT
+    ========================================================= */
+
+    .export {
+      width: 100%;
+      height: 54px;
+      margin-top: 6px;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      box-shadow: 0 5px 15px rgba(37, 99, 235, 0.15);
+    }
+
+    .export:hover {
+      transform: translateY(-2px);
+      background: #1d4ed8;
+      box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+    }
+
+    /* =========================================================
+       INFO CARDS
+    ========================================================= */
+
+    .info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .info-card {
+      padding: 12px;
+      border-radius: 10px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+    }
+
+    .info-label {
+      font-size: 8px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .info-value {
+      font-size: 11px;
+      color: #4b5563;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    /* =========================================================
+       STATUS
+    ========================================================= */
+
+    .status {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      font-size: 11px;
+      color: #6b7280;
+      line-height: 1.5;
+      text-align: center;
+      min-height: 40px;
+    }
+
+    .status.active {
+      color: #2563eb;
+      border-color: #bfdbfe;
+      background: #eff6ff;
+      font-weight: 600;
+    }
+
+    /* =========================================================
+       CUSTOM LANDMARK MARKER
+    ========================================================= */
+
+    .inn-marker-wrapper {
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+
+    .inn-pulse {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 28px;
+      height: 28px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 1px solid rgba(37, 99, 235, 0.8);
+      animation: pulse 2.2s ease-out infinite;
+    }
+
+    .inn-pulse:nth-child(2) { animation-delay: 0.7s; }
+    .inn-pulse:nth-child(3) { animation-delay: 1.4s; }
+
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(0.35); opacity: 0.9; }
+      100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+    }
+
+    .inn-core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: #2563eb;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2), 0 2px 10px rgba(37, 99, 235, 0.75);
+    }
+
+    .inn-label {
+      position: absolute;
+      left: 50%;
+      top: calc(50% + 28px);
+      transform: translateX(-50%);
+      white-space: nowrap;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: #ffffff;
+      border: 1px solid rgba(37, 99, 235, 0.35);
+      color: #2563eb;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* =========================================================
+       LEAFLET OVERRIDES
+    ========================================================= */
+
+    .leaflet-control-zoom {
+      border: none !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+      margin-top: 16px !important;
+      margin-right: 16px !important;
+    }
+
+    .leaflet-control-zoom a {
+      width: 38px !important;
+      height: 38px !important;
+      line-height: 38px !important;
+      background: #ffffff !important;
+      color: #374151 !important;
+      border: 1px solid #e5e7eb !important;
+      border-radius: 8px !important;
+    }
+
+    .leaflet-control-zoom a:hover {
+      background: #f3f4f6 !important;
+      color: #2563eb !important;
+    }
+
+    .leaflet-control-attribution {
+      background: rgba(255, 255, 255, 0.9) !important;
+      color: #6b7280 !important;
+      border-radius: 6px !important;
+      padding: 4px 8px !important;
+      font-size: 9px !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05) !important;
+    }
+
+    .leaflet-control-attribution a {
+      color: #2563eb !important;
+    }
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 700px) {
+      .panel {
+        top: 12px;
+        left: 12px;
+        right: 12px;
+        width: auto;
+        padding: 18px;
+      }
+      .title { font-size: 20px; }
+      .subtitle { margin-bottom: 16px; padding-bottom: 14px; }
+      .info { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========================================================
+       CONTROL PANEL
+  ======================================================== -->
+
+  <div class="panel">
+    <div class="eyebrow">Professional Cartography</div>
+    <div class="title">Express Highway Inn</div>
+    <div class="subtitle">
+      Generate a professional 3D vector map centered around Express Highway Inn and export it as an editable SVG.
+    </div>
+
+    <div class="search">
+      <input id="searchInput" value="Express Highway Inn" placeholder="Search location..." autocomplete="off" />
+      <button onclick="searchLocation()">GO</button>
+    </div>
+
+    <button class="location-btn" onclick="focusInn()">⌖ Center on Express Highway Inn</button>
+    <button class="export" onclick="exportSelectedArea()">Download Professional 3D SVG</button>
+
+    <div class="info">
+      <div class="info-card">
+        <div class="info-label">Format</div>
+        <div class="info-value">Editable SVG Vector</div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">Style</div>
+        <div class="info-value">Isometric 3D Light</div>
+      </div>
+    </div>
+
+    <div id="status" class="status active">Draw a rectangle around the area you want to export.</div>
+  </div>
+
+  <!-- ========================================================
+       MAP
+  ======================================================== -->
+
+  <div id="map"></div>
+
+  <!-- ========================================================
+       SCRIPTS
+  ======================================================== -->
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+
+  <script>
+    /* ========================================================
+       EXPRESS HIGHWAY INN LOCATION
+    ======================================================== */
+
+    const EXPRESS_HIGHWAY_INN = {
+      lat: 23.6968347,
+      lng: 90.5335419
+    };
+
+    /* ========================================================
+       MAP INITIALIZATION
+    ======================================================== */
+
+    const map = L.map("map", {
+      center: [EXPRESS_HIGHWAY_INN.lat, EXPRESS_HIGHWAY_INN.lng],
+      zoom: 15,
+      zoomControl: true,
+      preferCanvas: true
+    });
+
+    /* ========================================================
+       STANDARD OPENSTREETMAP (Real Map Look, White Background)
+       Uses fast German mirror to avoid 403/API Key errors
+    ======================================================== */
+
+    L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap',
+      subdomains: 'abc',
+      maxZoom: 19
+    }).addTo(map);
+
+    /* ========================================================
+       LANDMARK ICON
+    ======================================================== */
+
+    const innIcon = L.divIcon({
+      className: "",
+      html: `
+        <div class="inn-marker-wrapper">
+          <div class="inn-pulse"></div>
+          <div class="inn-pulse"></div>
+          <div class="inn-pulse"></div>
+          <div class="inn-core"></div>
+          <div class="inn-label">Express Highway Inn</div>
+        </div>
+      `,
+      iconSize: [80, 80],
+      iconAnchor: [40, 40]
+    });
+
+    const innMarker = L.marker([EXPRESS_HIGHWAY_INN.lat, EXPRESS_HIGHWAY_INN.lng], {
+      icon: innIcon,
+      zIndexOffset: 10000
+    }).addTo(map);
+
+    innMarker.bindPopup(`
+      <div style="font-family:Arial; min-width:180px; color:#111;">
+        <strong>Express Highway Inn</strong><br />
+        <span style="font-size:11px; color:#666;">Premium Highway Hospitality</span>
+      </div>
+    `);
+
+    /* ========================================================
+       DRAWING LAYER & CONTROLS
+    ======================================================== */
+
+    const drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    const drawControl = new L.Control.Draw({
+      position: "topright",
+      draw: {
+        polygon: false,
+        polyline: false,
+        circle: false,
+        marker: false,
+        circlemarker: false,
+        rectangle: {
+          shapeOptions: {
+            color: "#2563eb",
+            weight: 2,
+            opacity: 1,
+            fillColor: "#2563eb",
+            fillOpacity: 0.08
+          }
+        }
+      },
+      edit: {
+        featureGroup: drawnItems
+      }
+    });
+
+    map.addControl(drawControl);
+
+    let selectedBounds = null;
+
+    map.on(L.Draw.Event.CREATED, function(event) {
+      drawnItems.clearLayers();
+      const layer = event.layer;
+      drawnItems.addLayer(layer);
+      selectedBounds = layer.getBounds();
+      setStatus("Area selected. Click Download Professional 3D SVG.");
+    });
+
+    map.on(L.Draw.Event.EDITED, function(event) {
+      event.layers.eachLayer(function(layer) {
+        selectedBounds = layer.getBounds();
+      });
+      setStatus("Selection updated. Ready to export.");
+    });
+
+    /* ========================================================
+       UI FUNCTIONS
+    ======================================================== */
+
+    function focusInn() {
+      map.flyTo([EXPRESS_HIGHWAY_INN.lat, EXPRESS_HIGHWAY_INN.lng], 16, {
+        duration: 1.5,
+        easeLinearity: 0.2
+      });
+      setStatus("Centered on Express Highway Inn.");
+    }
+
+    async function searchLocation() {
+      const input = document.getElementById("searchInput");
+      const query = input.value.trim();
+      if (!query) return;
+
+      setStatus("Searching location...");
+
+      try {
+        const url = "https://nominatim.openstreetmap.org/search?format=json&limit=1&q=" + encodeURIComponent(query);
+        const response = await fetch(url, { headers: { "Accept": "application/json" } });
+
+        if (!response.ok) throw new Error("Search request failed");
+
+        const data = await response.json();
+        if (!data.length) {
+          setStatus("Location not found.");
+          return;
+        }
+
+        const location = data[0];
+        const lat = parseFloat(location.lat);
+        const lng = parseFloat(location.lon);
+
+        map.flyTo([lat, lng], 15, { duration: 1.5 });
+        setStatus("Location found. Draw your export area.");
+
+      } catch (error) {
+        console.error(error);
+        setStatus("Search failed. Please try again.");
+      }
+    }
+
+    document.getElementById("searchInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") searchLocation();
+    });
+
+    function setStatus(message) {
+      const status = document.getElementById("status");
+      status.innerText = message;
+      status.classList.add("active");
+    }
+
+    /* ========================================================
+       OVERPASS API DATA FETCHING (With 60s Timeout & Backups)
+    ======================================================== */
+
+    async function fetchOSMData(bounds) {
+      const south = bounds.getSouth();
+      const west = bounds.getWest();
+      const north = bounds.getNorth();
+      const east = bounds.getEast();
+
+      setStatus("Downloading live map data... Please wait up to 60s.");
+
+      const query = `
+        [out:json][timeout:60];
+        (
+          way["building"](${south},${west},${north},${east});
+          way["highway"](${south},${west},${north},${east});
+          way["waterway"](${south},${west},${north},${east});
+          way["natural"="water"](${south},${west},${north},${east});
+          way["leisure"="park"](${south},${west},${north},${east});
+          way["landuse"="grass"](${south},${west},${north},${east});
+          way["landuse"="forest"](${south},${west},${north},${east});
+        );
+        out geom;
+      `;
+
+      const servers = [
+        "https://overpass-api.de/api/interpreter",
+        "https://overpass.kumi.systems/api/interpreter",
+        "https://overpass.private.coffee/api/interpreter"
+      ];
+
+      let lastError = null;
+
+      for (const server of servers) {
+        // 60-second timeout to handle large city data
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 60000);
+
+        try {
+          const response = await fetch(server, {
+            method: "POST",
+            body: query,
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            signal: controller.signal
+          });
+
+          clearTimeout(timeoutId);
+
+          if (!response.ok) throw new Error("Overpass server failed");
+
+          return await response.json();
+        } catch (error) {
+          clearTimeout(timeoutId);
+          lastError = error;
+        }
+      }
+
+      throw (lastError || new Error("All Overpass servers failed."));
+    }
+
+    /* ========================================================
+       SVG PROJECTION & GENERATION
+    ======================================================== */
+
+    function project(lat, lng, bounds, width, height) {
+      const minLat = bounds.getSouth();
+      const maxLat = bounds.getNorth();
+      const minLng = bounds.getWest();
+      const maxLng = bounds.getEast();
+
+      const lngRange = maxLng - minLng;
+      const latRange = maxLat - minLat;
+
+      const x = lngRange === 0 ? width / 2 : ((lng - minLng) / lngRange) * width;
+      const y = latRange === 0 ? height / 2 : (1 - ((lat - minLat) / latRange)) * height;
+
+      return { x, y };
+    }
+
+    function createPath(geometry, bounds, width, height) {
+      if (!geometry || geometry.length < 2) return "";
+      return geometry.map(function(point, index) {
+        const p = project(point.lat, point.lon, bounds, width, height);
+        return (index === 0 ? "M " : "L ") + p.x.toFixed(2) + " " + p.y.toFixed(2);
+      }).join(" ");
+    }
+
+    function createPolygon(geometry, bounds, width, height) {
+      if (!geometry || geometry.length < 3) return "";
+      return geometry.map(function(point) {
+        const p = project(point.lat, point.lon, bounds, width, height);
+        return p.x.toFixed(2) + "," + p.y.toFixed(2);
+      }).join(" ");
+    }
+
+    function createBuilding3D(geometry, bounds, width, height) {
+      if (!geometry || geometry.length < 3) return "";
+      const points = geometry.map(function(point) {
+        return project(point.lat, point.lon, bounds, width, height);
+      });
+
+      const dx = 7;
+      const dy = 13;
+      let svg = "";
+
+      // Side Walls (Light Grey)
+      for (let i = 0; i < points.length; i++) {
+        const a = points[i];
+        const b = points[(i + 1) % points.length];
+        const polygon = [
+          `${a.x},${a.y}`,
+          `${b.x},${b.y}`,
+          `${b.x + dx},${b.y + dy}`,
+          `${a.x + dx},${a.y + dy}`
+        ].join(" ");
+
+        svg += `<polygon points="${polygon}" fill="#e5e7eb" opacity="0.95" />`;
+      }
+
+      // Top Roof (White)
+      const top = points.map(function(point) {
+        return point.x + "," + point.y;
+      }).join(" ");
+
+      svg += `<polygon points="${top}" fill="url(#buildingGradient)" stroke="#d1d5db" stroke-width="0.65" stroke-linejoin="round" />`;
+      svg += `<polygon points="${top}" fill="url(#roofGradient)" opacity="0.3" />`;
+
+      return svg;
+    }
+
+    function getRoadWidth(type) {
+      switch (type) {
+        case "motorway": return 15;
+        case "trunk": return 12;
+        case "primary": return 9;
+        case "secondary": return 7;
+        case "tertiary": return 5;
+        case "residential": return 3;
+        case "service": return 2;
+        default: return 2;
+      }
+    }
+
+    function createLandmark(bounds, width, height) {
+      const p = project(EXPRESS_HIGHWAY_INN.lat, EXPRESS_HIGHWAY_INN.lng, bounds, width, height);
+      
+      if (p.x < -100 || p.x > width + 100 || p.y < -100 || p.y > height + 100) return "";
+
+      const x = p.x;
+      const y = p.y;
+
+      return `
+        <g>
+          <circle cx="${x}" cy="${y}" r="34" fill="none" stroke="#2563eb" stroke-width="1" opacity="0.18" />
+          <circle cx="${x}" cy="${y}" r="23" fill="none" stroke="#2563eb" stroke-width="1.2" opacity="0.35" />
+          <circle cx="${x}" cy="${y}" r="10" fill="#2563eb" opacity="0.18" />
+          <circle cx="${x}" cy="${y}" r="6" fill="#2563eb" stroke="#ffffff" stroke-width="2" filter="url(#goldGlow)" />
+          <circle cx="${x}" cy="${y}" r="2" fill="#ffffff" />
+          
+          <rect x="${x - 78}" y="${y + 16}" width="156" height="24" rx="4" fill="#ffffff" stroke="#2563eb" stroke-width="0.7" opacity="0.95" />
+          <text x="${x}" y="${y + 31}" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="700" letter-spacing="1.5" fill="#2563eb">
+            EXPRESS HIGHWAY INN
+          </text>
+        </g>
+      `;
+    }
+
+    /* ========================================================
+       EXPORT SVG (Guaranteed Download & Auto-Scaling)
+    ======================================================== */
+
+    async function exportSelectedArea() {
+      if (!selectedBounds) {
+        const lat = EXPRESS_HIGHWAY_INN.lat;
+        const lng = EXPRESS_HIGHWAY_INN.lng;
+        const offset = 0.005; // Roughly 500m bounding box
+        selectedBounds = L.latLngBounds(
+          [lat - offset, lng - offset],
+          [lat + offset, lng + offset]
+        );
+        setStatus("No area selected. Using automatic area around Express Highway Inn...");
+      }
+
+      // AUTOMATIC AREA SCALER
+      // Prevent Overpass server timeouts by limiting the maximum allowed download area to ~2km x 2km (0.02 degrees)
+      const latDiff = selectedBounds.getNorth() - selectedBounds.getSouth();
+      const lngDiff = selectedBounds.getEast() - selectedBounds.getWest();
+      
+      if (latDiff > 0.02 || lngDiff > 0.02) {
+        const centerLat = selectedBounds.getCenter().lat;
+        const centerLng = selectedBounds.getCenter().lng;
+        const maxOffset = 0.01; // 0.01 degrees is roughly 1.1km
+        
+        // Shrink the bounds to the maximum allowed size centered on the middle of their drawing
+        selectedBounds = L.latLngBounds(
+          [centerLat - maxOffset, centerLng - maxOffset],
+          [centerLat + maxOffset, centerLng + maxOffset]
+        );
+        
+        setStatus("Area was too large. Automatically scaled to 2km x 2km to ensure successful download...");
+      } else {
+        setStatus("Fetching live map data... Please wait.");
+      }
+
+      let elements = [];
+      
+      try {
+        const data = await fetchOSMData(selectedBounds);
+        elements = data.elements || [];
+        
+        if (elements.length === 0) {
+          setStatus("No map data found in this area. Try a different location.");
+          return;
+        }
+      } catch (error) {
+        console.error("Data fetch failed:", error);
+        setStatus("Servers too busy. Please wait a moment and try again.");
+        return;
+      }
+
+      try {
+        const width = 3000;
+        const height = 2200;
+
+        let buildings = "";
+        let roads = "";
+        let water = "";
+        let parks = "";
+
+        for (const element of elements) {
+          if (!element.geometry) continue;
+          const tags = element.tags || {};
+
+          if (tags.building) {
+            buildings += createBuilding3D(element.geometry, selectedBounds, width, height);
+            continue;
+          }
+
+          if (tags.highway) {
+            const path = createPath(element.geometry, selectedBounds, width, height);
+            const roadWidth = getRoadWidth(tags.highway);
+
+            // Light Grey Road Base
+            roads += `<path d="${path}" fill="none" stroke="#e5e7eb" stroke-width="${roadWidth}" stroke-linecap="round" stroke-linejoin="round" opacity="0.98" />`;
+            // Road Center Line
+            roads += `<path d="${path}" fill="none" stroke="#9ca3af" stroke-width="${Math.max(0.45, roadWidth * 0.16)}" stroke-linecap="round" stroke-linejoin="round" opacity="0.5" />`;
+            continue;
+          }
+
+          if (tags.waterway || tags.natural === "water") {
+            const polygon = createPolygon(element.geometry, selectedBounds, width, height);
+            if (element.geometry.length >= 3) {
+              water += `<polygon points="${polygon}" fill="#bfdbfe" stroke="#93c5fd" stroke-width="2" opacity="0.95" />`;
+            } else {
+              const path = createPath(element.geometry, selectedBounds, width, height);
+              water += `<path d="${path}" fill="none" stroke="#93c5fd" stroke-width="4" opacity="0.9" />`;
+            }
+            continue;
+          }
+
+          if (tags.leisure === "park" || tags.landuse === "grass" || tags.landuse === "forest") {
+            const polygon = createPolygon(element.geometry, selectedBounds, width, height);
+            parks += `<polygon points="${polygon}" fill="#d1fae5" stroke="#a7f3d0" stroke-width="1" opacity="0.9" />`;
+          }
+        }
+
+        const landmark = createLandmark(selectedBounds, width, height);
+
+        // Generate professional grid lines
+        let gridSvg = "";
+        const gridSize = 100;
+        for (let i = 1; i < width / gridSize; i++) {
+          gridSvg += `<line x1="${i * gridSize}" y1="0" x2="${i * gridSize}" y2="${height}" stroke="#f3f4f6" stroke-width="1" />`;
+        }
+        for (let i = 1; i < height / gridSize; i++) {
+          gridSvg += `<line x1="0" y1="${i * gridSize}" x2="${width}" y2="${i * gridSize}" stroke="#f3f4f6" stroke-width="1" />`;
+        }
+
+        // CRITICAL: The XML declaration MUST be on the absolute first line with no spaces before it.
+        const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="backgroundGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f9fafb" />
+    </linearGradient>
+    
+    <linearGradient id="buildingGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f3f4f6" />
+    </linearGradient>
+    
+    <linearGradient id="roofGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+    
+    <linearGradient id="goldGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    
+    <filter id="goldGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    
+    <filter id="buildingShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="8" dy="14" stdDeviation="8" flood-color="#000000" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#backgroundGradient)" />
+  
+  <g id="grid">
+    ${gridSvg}
+  </g>
+
+  <g id="parks">${parks}</g>
+  <g id="water">${water}</g>
+  <g id="roads">${roads}</g>
+  
+  <g id="buildings" filter="url(#buildingShadow)">${buildings}</g>
+  <g id="express-highway-inn">${landmark}</g>
+
+  <rect x="25" y="25" width="${width - 50}" height="${height - 50}" rx="12" fill="none" stroke="url(#goldGradient)" stroke-width="2" opacity="0.65" />
+
+  <g fill="none" stroke="#2563eb" stroke-width="2" opacity="0.75">
+    <path d="M 25 90 L 25 25 L 90 25" />
+    <path d="M ${width - 90} 25 L ${width - 25} 25 L ${width - 25} 90" />
+    <path d="M 25 ${height - 90} L 25 ${height - 25} L 90 ${height - 25}" />
+    <path d="M ${width - 90} ${height - 25} L ${width - 25} ${height - 25} L ${width - 25} ${height - 90}" />
+  </g>
+
+  <text x="70" y="${height - 70}" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="3" fill="#2563eb">EXPRESS HIGHWAY INN</text>
+  <text x="70" y="${height - 48}" font-family="Arial, Helvetica, sans-serif" font-size="8" letter-spacing="2" fill="#6b7280">PREMIUM HIGHWAY HOSPITALITY</text>
+</svg>`;
+
+        const blob = new Blob([svg.trim()], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "express-highway-inn-3d-map.svg";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setTimeout(function() {
+          URL.revokeObjectURL(url);
+        }, 1000);
+
+        setStatus("✓ Professional SVG downloaded successfully with map data.");
+
+      } catch (error) {
+        console.error("SVG generation error:", error);
+        setStatus("Export failed. Please try again.");
+      }
+    }
+  </script>
+</body>
+</html>
