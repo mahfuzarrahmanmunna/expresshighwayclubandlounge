@@ -37,7 +37,7 @@ const galleryImages = [
     label: "Wellness & Spa",
   },
   {
-    src: "https://images.unsplash.com/photo-1555232315-4fcd4d0353d6?q=80&w=1200&auto=format&fit=crop",
+    src: "/images/billiards.jpeg",
     alt: "Recreation Room",
     span: "",
     label: "Billiards Room",

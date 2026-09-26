@@ -10,11 +10,11 @@ if (typeof window !== "undefined") {
 }
 
 const facilities = [
-  { id: 1, number: "01", name: "Car Wash & Towing", label: "Essential Services", description: "Essential automotive support during the journey.", image: "https://images.unsplash.com/photo-1607860108855-64f207422e8f?q=80&w=2000&auto=format&fit=crop" },
-  { id: 2, number: "02", name: "Prayer Room", label: "Quiet Reflection", description: "A quiet and dedicated space for prayer.", image: "https://images.unsplash.com/photo-1545558014-9312022d4bbc?q=80&w=2000&auto=format&fit=crop" },
-  { id: 3, number: "03", name: "Billiards & Card Room", label: "Social Recreation", description: "Private recreation and social entertainment.", image: "https://images.unsplash.com/photo-1555232315-4fcd4d0353d6?q=80&w=2000&auto=format&fit=crop" },
-  { id: 4, number: "04", name: "Juice & Drinks Bar", label: "Refreshment", description: "Refreshing beverages in a relaxed environment.", image: "https://images.unsplash.com/photo-1551024601-bec78aea8b3f?q=80&w=2000&auto=format&fit=crop" },
-  { id: 5, number: "05", name: "CRM Banking Booth", label: "Financial Access", description: "Convenient access to essential banking services.", image: "https://images.unsplash.com/photo-1565374720053-8a1d6512eda2?q=80&w=2000&auto=format&fit=crop" },
+  { id: 1, number: "01", name: "Car Wash & Towing", label: "Essential Services", description: "Essential automotive support during the journey.", image: "/images/carwash.jpeg" },
+  { id: 2, number: "02", name: "Prayer Room", label: "Quiet Reflection", description: "A quiet and dedicated space for prayer.", image: "/images/prayerroom.jpg" },
+  { id: 3, number: "03", name: "Billiards & Card Room", label: "Social Recreation", description: "Private recreation and social entertainment.", image: "/images/billiards.jpeg" },
+  { id: 4, number: "04", name: "Juice & Drinks Bar", label: "Refreshment", description: "Refreshing beverages in a relaxed environment.", image: "/images/bar.jpg" },
+  { id: 5, number: "05", name: "CRM Banking Booth", label: "Financial Access", description: "Convenient access to essential banking services.", image: "/images/emporium.jpeg" },
 ];
 
 export default function FacilitiesHorizontalSection() {
