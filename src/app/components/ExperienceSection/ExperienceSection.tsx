@@ -40,8 +40,8 @@ export default function ExperienceSection() {
   const paragraphOpacity = useTransform(smooth, prefersReducedMotion ? [0, 1] : [0.3, 0.45], prefersReducedMotion ? [1, 1] : [0, 1]);
   const paragraphY = useTransform(smooth, prefersReducedMotion ? [0, 1] : [0.3, 0.45], prefersReducedMotion ? [0, 0] : [30, 0]);
 
-  const pillarsOpacity = useTransform(smooth, prefersReducedMotion ? [0, 1] : [0.35, 0.5], prefersReducedMotion ? [1, 1] : [0, 1]);
-  const pillarsY = useTransform(smooth, prefersReducedMotion ? [0, 1] : [0.35, 0.5], prefersReducedMotion ? [0, 0] : [40, 0]);
+  const noteOpacity = useTransform(smooth, prefersReducedMotion ? [0, 1] : [0.35, 0.5], prefersReducedMotion ? [1, 1] : [0, 1]);
+  const noteY = useTransform(smooth, prefersReducedMotion ? [0, 1] : [0.35, 0.5], prefersReducedMotion ? [0, 0] : [40, 0]);
 
   return (
     <div ref={ref} className="relative z-10 h-[300vh] -mt-[100vh] w-full">
@@ -55,9 +55,10 @@ export default function ExperienceSection() {
 
             <motion.div style={{ clipPath: imageClip }} className="absolute inset-0 z-0">
               <motion.div style={{ scale: imageScale, filter: imageBlur, y: imageY }} className="absolute inset-0 w-full h-full">
-                <Image src="/images/ChatGPT Image Sep 15, 2026, 04_25_55 PM.png" alt="Express Highway Club Experience" fill sizes="100vw" className="object-cover object-center" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0D] via-[#0B0B0D]/30 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0D]/70 via-transparent to-transparent" />
+                <Image src="/images/ChatGPT Image Sep 15, 2026, 05_15_24 PM.png" alt="Express Highway Club Experience" fill sizes="100vw" className="object-cover object-center" />
+                {/* Refined cinematic gradients optimized for dark mode readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0D] via-[#0B0B0D]/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0D]/80 via-transparent to-transparent" />
               </motion.div>
             </motion.div>
 
@@ -65,7 +66,7 @@ export default function ExperienceSection() {
               
               <motion.div style={{ opacity: topBarOpacity, y: topBarY }} className="flex flex-col gap-3 md:gap-4 w-full">
                 <div className="flex justify-between items-start w-full">
-                  <motion.span style={{ color: labelColor }} className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.3em] sm:tracking-[0.4em] uppercase font-light whitespace-nowrap">01 — The Club Experience</motion.span>
+                  <motion.span style={{ color: labelColor }} className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.3em] sm:tracking-[0.4em] uppercase font-light whitespace-nowrap">01 — About the Club</motion.span>
                   <div className="flex items-center gap-3 md:gap-4">
                     <motion.div className="w-8 md:w-12 h-px hidden sm:block" style={{ backgroundColor: lineColor }} />
                     <motion.span style={{ color: labelColor }} className="text-sm md:text-lg font-serif tracking-[0.2em] whitespace-nowrap">EHI</motion.span>
@@ -81,46 +82,32 @@ export default function ExperienceSection() {
                 <div className="relative z-10 w-full md:w-[65%]">
                   <h2 className="font-serif text-[2rem] sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1] md:leading-[0.95] tracking-[-0.02em] drop-shadow-[0_5px_30px_rgba(0,0,0,0.5)]">
                     <span className="block overflow-hidden mb-1 md:mb-2 pb-[0.15em] md:pb-[0.2em]">
-                      <motion.span style={{ color: textColor, y: headlineMaskY1 }} className="block">A Sanctuary of</motion.span>
+                      <motion.span style={{ color: textColor, y: headlineMaskY1 }} className="block">A private stop,</motion.span>
                     </span>
                     <span className="block overflow-hidden pb-[0.15em] md:pb-[0.2em]">
-                      <motion.span style={{ color: textColor, y: headlineMaskY2 }} className="block italic font-extralight">Modern Luxury.</motion.span>
+                      <motion.span style={{ color: textColor, y: headlineMaskY2 }} className="block italic font-extralight">built for the road you travel.</motion.span>
                     </span>
                   </h2>
                 </div>
 
-                <div className="relative z-10 w-full md:w-[35%] flex flex-col gap-8 md:gap-12 md:pb-4">
+                {/* Right Column: Paragraph & Note */}
+                <div className="relative z-10 w-full md:w-[35%] flex flex-col gap-8 md:gap-10 md:pb-4">
+                  
                   <motion.div style={{ opacity: paragraphOpacity, y: paragraphY }}>
                     <motion.p style={{ color: textColor }} className="text-xs sm:text-sm md:text-base font-light leading-[1.8] md:leading-[1.9] tracking-wide opacity-80 max-w-md drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-                      More than a destination, Express Highway Club & Lounge is a haven for the modern traveler. We bring together culinary excellence, private gathering spaces, and restorative wellness to elevate every journey.
+                      Sampan Highway Inn sits on the route you already take — for business, for family visits, for the long drive home. Express Highway Inn Club & Lounge membership turns that stop from a convenience into a standing arrangement: your table, your room, your rate, ready before you arrive.
                     </motion.p>
                   </motion.div>
 
-                  <motion.div style={{ opacity: pillarsOpacity, y: pillarsY }} className="flex flex-row md:flex-col justify-between md:justify-start gap-4 md:gap-0 border-t pt-6 md:pt-8">
-                    <motion.div className="hidden md:block w-full h-px mb-6 absolute left-0" style={{ backgroundColor: lineColor, width: "calc(100% - 0px)" }} />
+                  <motion.div style={{ opacity: noteOpacity, y: noteY }} className="flex flex-col gap-6 border-t pt-6 md:pt-8">
+                    <motion.div className="hidden md:block w-full h-px mb-2 absolute left-0" style={{ backgroundColor: lineColor, width: "calc(100% - 0px)" }} />
                     
-                    <motion.div className="flex flex-col items-center md:flex-row md:items-start gap-2 md:gap-6 md:py-5 md:border-b text-center md:text-left flex-1 md:flex-none" style={{ borderColor: lineColor }}>
-                      <motion.span style={{ color: labelColor }} className="text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em]">01</motion.span>
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between md:w-full">
-                        <motion.h3 style={{ color: textColor }} className="text-[11px] md:text-base font-serif tracking-[0.15em] md:tracking-[0.2em]">DINING</motion.h3>
-                        <motion.p style={{ color: textColor }} className="text-[10px] md:text-sm font-light opacity-70 leading-relaxed max-w-[200px] hidden md:block">Artisanal cuisine crafted to elevate the senses.</motion.p>
-                      </div>
-                    </motion.div>
-                    
-                    <motion.div className="flex flex-col items-center md:flex-row md:items-start gap-2 md:gap-6 md:py-5 md:border-b text-center md:text-left flex-1 md:flex-none" style={{ borderColor: lineColor }}>
-                      <motion.span style={{ color: labelColor }} className="text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em]">02</motion.span>
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between md:w-full">
-                        <motion.h3 style={{ color: textColor }} className="text-[11px] md:text-base font-serif tracking-[0.15em] md:tracking-[0.2em]">LOUNGE</motion.h3>
-                        <motion.p style={{ color: textColor }} className="text-[10px] md:text-sm font-light opacity-70 leading-relaxed max-w-[200px] hidden md:block">Exclusive spaces designed for connection and quiet.</motion.p>
-                      </div>
-                    </motion.div>
-
-                    <div className="flex flex-col items-center md:flex-row md:items-start gap-2 md:gap-6 md:py-5 text-center md:text-left flex-1 md:flex-none">
-                      <motion.span style={{ color: labelColor }} className="text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em]">03</motion.span>
-                      <div className="flex flex-col md:flex-row md:items-center md:justify-between md:w-full">
-                        <motion.h3 style={{ color: textColor }} className="text-[11px] md:text-base font-serif tracking-[0.15em] md:tracking-[0.2em]">WELLNESS</motion.h3>
-                        <motion.p style={{ color: textColor }} className="text-[10px] md:text-sm font-light opacity-70 leading-relaxed max-w-[200px] hidden md:block">Restorative amenities to refresh the modern traveler.</motion.p>
-                      </div>
+                    {/* Sampan Group Note */}
+                    <div className="mt-2 text-center sm:text-left">
+                      <span className="block text-[#C5A059] text-[9px] tracking-[0.3em] uppercase font-light mb-2">A Sampan Group property</span>
+                      <p className="text-[#F5F3EE]/40 text-[10px] md:text-xs font-light leading-[1.8] tracking-wide max-w-md">
+                        One membership, recognised across Sampan Highway Inn and the wider Sampan Group network as it grows along the highway.
+                      </p>
                     </div>
                   </motion.div>
                 </div>

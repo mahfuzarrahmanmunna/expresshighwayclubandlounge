@@ -54,13 +54,7 @@ export default function ContactSection() {
                 transition={{ duration: 0.8, ease: smoothEase }}
                 className="flex flex-col gap-6"
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-12 md:w-16 h-px bg-[#C5A059]" />
-                  <span className="text-[#987D3E] text-[10px] md:text-xs tracking-[0.4em] uppercase font-light whitespace-nowrap">
-                    07 — Contact
-                  </span>
-                </div>
-                
+                               
                 <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-[#0B0B0D] leading-[0.9] tracking-[-0.02em] font-normal">
                   An Invitation <br/>
                   <span className="italic font-extralight text-[#0B0B0D]/60">Awaits.</span>
@@ -78,7 +72,7 @@ export default function ContactSection() {
               </motion.p>
             </div>
 
-            {/* Contact Details */}
+            {/* Real Contact Details */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -87,16 +81,24 @@ export default function ContactSection() {
               className="flex flex-col gap-6"
             >
               <div className="flex flex-col gap-2">
-                <span className="text-[#987D3E] text-[9px] tracking-[0.3em] uppercase font-light">Visit</span>
-                <p className="text-[#0B0B0D] text-sm md:text-base font-light tracking-wide">Express Highway, Mile Marker 42</p>
+                <span className="text-[#987D3E] text-[9px] tracking-[0.3em] uppercase font-light">Visit us</span>
+                <p className="text-[#0B0B0D] text-sm md:text-base font-light tracking-wide leading-[1.8]">
+                  Head Office: Sampan 21st Century, House-284, Block-B Road-1/A, Bashundhara, Dhaka-1229, Bangladesh.
+                </p>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="text-[#987D3E] text-[9px] tracking-[0.3em] uppercase font-light">Email</span>
-                <p className="text-[#0B0B0D] text-sm md:text-base font-light tracking-wide">concierge@expresshighwayclub.com</p>
+                <span className="text-[#987D3E] text-[9px] tracking-[0.3em] uppercase font-light">Email us</span>
+                <a href="mailto:contact@expresshighwayclub.com" className="group relative text-[#0B0B0D] text-sm md:text-base font-light tracking-wide w-fit transition-colors duration-300 hover:text-[#C5A059]">
+                  contact@expresshighwayclub.com
+                  <div className="absolute left-0 -bottom-1 w-0 h-px bg-[#C5A059] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-full"></div>
+                </a>
               </div>
               <div className="flex flex-col gap-2">
-                <span className="text-[#987D3E] text-[9px] tracking-[0.3em] uppercase font-light">Call</span>
-                <p className="text-[#0B0B0D] text-sm md:text-base font-light tracking-wide">+1 (555) 123-4567</p>
+                <span className="text-[#987D3E] text-[9px] tracking-[0.3em] uppercase font-light">Call us</span>
+                <a href="tel:+8801906896327" className="group relative text-[#0B0B0D] text-sm md:text-base font-light tracking-wide w-fit transition-colors duration-300 hover:text-[#C5A059]">
+                  +880 1906-896327
+                  <div className="absolute left-0 -bottom-1 w-0 h-px bg-[#C5A059] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-full"></div>
+                </a>
               </div>
             </motion.div>
 
@@ -157,7 +159,7 @@ export default function ContactSection() {
               <div className="mt-4 flex justify-end">
                 <button 
                   type="submit" 
-                  className="group relative overflow-hidden bg-[#C5A059] text-[#0B0B0D] px-12 py-4 text-[10px] tracking-[0.3em] uppercase font-medium transition-colors duration-500 hover:text-[#0B0B0D] border border-[#C5A059] disabled:opacity-70"
+                  className="group cursor-pointer relative overflow-hidden bg-[#C5A059] text-[#0B0B0D] px-12 py-4 text-[10px] tracking-[0.3em] uppercase font-medium transition-colors duration-500 hover:text-[#0B0B0D] border border-[#C5A059] disabled:opacity-70"
                   disabled={isSubmitted}
                 >
                   <span className="relative z-10">
