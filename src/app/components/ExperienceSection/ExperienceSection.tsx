@@ -44,7 +44,7 @@ export default function ExperienceSection() {
   const noteY = useTransform(smooth, prefersReducedMotion ? [0, 1] : [0.35, 0.5], prefersReducedMotion ? [0, 0] : [40, 0]);
 
   return (
-    <div ref={ref} className="relative z-10 h-[300vh] -mt-[100vh] w-full">
+    <div id="experience" ref={ref} className="relative z-10 h-[300vh] -mt-[100vh] w-full">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         <div className="absolute bottom-0 left-0 right-0 flex justify-center">
           
