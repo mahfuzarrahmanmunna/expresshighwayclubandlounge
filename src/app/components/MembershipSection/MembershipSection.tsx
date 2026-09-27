@@ -130,19 +130,25 @@ export default function MembershipSection() {
             className="flex flex-col gap-8 md:pr-8 order-2 md:order-1"
           >
             <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-4">
+              {/* <div className="flex items-center gap-4">
                 <div className="w-12 md:w-16 h-px bg-[#C5A059]" />
                 <span className="text-[#987D3E] text-[10px] md:text-xs tracking-[0.4em] uppercase font-light whitespace-nowrap">
                   02 — The Membership
                 </span>
-              </div>
+              </div> */}
               
               <h2 className="font-serif text-[2.5rem] sm:text-6xl md:text-7xl lg:text-8xl text-[#0B0B0D] leading-[0.9] tracking-[-0.02em] font-normal text-center md:text-left">
                 <span className="block overflow-hidden mb-2 pb-[0.1em]">
                   <motion.span style={{ y: textMaskY }} className="block">The Art of</motion.span>
                 </span>
                 <span className="block overflow-hidden pb-[0.1em]">
-                  <motion.span style={{ y: textMaskY, delay: 0.2 }} className="block italic font-extralight text-[#0B0B0D]/70">Access.</motion.span>
+                  <motion.span
+                    style={{ y: textMaskY }}
+                    transition={{ delay: 0.2 }}
+                    className="block italic font-extralight text-[#0B0B0D]/70"
+                  >
+                    Access.
+                  </motion.span>
                 </span>
               </h2>
             </div>

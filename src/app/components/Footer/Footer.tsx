@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const smoothEase = [0.22, 1, 0.36, 1] as const;
 
@@ -59,9 +60,6 @@ export default function Footer() {
       
       {/* --- Architectural Background Atmosphere --- */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[10rem] sm:text-[16rem] md:text-[24rem] text-[#0B0B0D] whitespace-nowrap pointer-events-none select-none leading-none opacity-[0.02]">
-          EHI
-        </span>
         {/* Fine Grain Texture */}
         <div className="absolute inset-0 opacity-[0.015] mix-blend-multiply" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")" }} />
       </div>
@@ -77,20 +75,26 @@ export default function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: smoothEase }}
-            className="md:col-span-5 flex flex-col gap-6"
+            className="md:col-span-5 flex flex-col gap-8"
           >
-            <div className="flex items-center gap-4">
-              <h3 className="font-serif text-3xl md:text-4xl text-[#0B0B0D] tracking-[0.1em] font-normal">
-                EHI
-              </h3>
-              <div className="w-12 h-px bg-[#C5A059]"></div>
+            {/* Logo Implementation */}
+            <div className="relative w-[140px] h-[45px] md:w-[160px] md:h-[50px]">
+              <Image
+                src="/logo/logo.png"
+                alt="Express Highway Inn Logo"
+                fill
+                sizes="(max-width: 768px) 140px, 160px"
+                className="object-contain object-left"
+                priority
+              />
             </div>
+            
             <div className="flex flex-col gap-2 text-[#0B0B0D]/60 text-sm font-light leading-[1.9] tracking-wide max-w-xs">
               <span className="text-[#0B0B0D] font-normal tracking-wide">Express Highway Inn Club & Lounge</span>
               <span>Sampan Highway Inn</span>
               <span>Dhaka–Sylhet Highway, Bangladesh</span>
             </div>
-            <p className="text-[#0B0B0D]/40 text-xs font-light leading-[1.8] tracking-wide italic mt-2 max-w-[16rem]">
+            <p className="text-[#0B0B0D]/40 text-xs font-light leading-[1.8] tracking-wide italic max-w-[16rem]">
               Membership enquiries confirmed by the Sampan Group team.
             </p>
           </motion.div>
