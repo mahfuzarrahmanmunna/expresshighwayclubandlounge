@@ -62,20 +62,10 @@ export default function ExperienceSection() {
               </motion.div>
             </motion.div>
 
-            <div className="relative z-10 flex flex-col h-full w-full px-6 sm:px-8 md:px-12 lg:px-24 py-6 md:py-12 lg:py-16 justify-between">
+            {/* Changed justify-between to justify-end and adjusted bottom padding */}
+            <div className="relative z-10 flex flex-col h-full w-full px-6 sm:px-8 md:px-12 lg:px-24 pt-6 md:pt-12 pb-12 md:pb-20 lg:pb-24 justify-end">
               
-              <motion.div style={{ opacity: topBarOpacity, y: topBarY }} className="flex flex-col gap-3 md:gap-4 w-full">
-                <div className="flex justify-between items-start w-full">
-                  <motion.span style={{ color: labelColor }} className="text-[9px] sm:text-[10px] md:text-xs tracking-[0.3em] sm:tracking-[0.4em] uppercase font-light whitespace-nowrap">01 — About the Club</motion.span>
-                  <div className="flex items-center gap-3 md:gap-4">
-                    <motion.div className="w-8 md:w-12 h-px hidden sm:block" style={{ backgroundColor: lineColor }} />
-                    <motion.span style={{ color: labelColor }} className="text-sm md:text-lg font-serif tracking-[0.2em] whitespace-nowrap">EHI</motion.span>
-                  </div>
-                </div>
-                <motion.div className="w-full h-px" style={{ backgroundColor: lineColor, scaleX: topLineScale, transformOrigin: "left" }} />
-              </motion.div>
-
-              <div className="flex flex-col gap-6 md:gap-16 w-full max-w-[1600px] mx-auto mt-4 md:mt-0 md:flex-row md:items-end relative">
+              <div className="flex flex-col gap-6 md:gap-16 w-full max-w-[1600px] mx-auto md:flex-row md:items-end relative">
                 
                 <motion.span style={{ color: ghostNumberColor }} className="hidden md:block absolute -top-32 -left-8 font-serif text-[18rem] xl:text-[24rem] leading-none pointer-events-none select-none z-0">01</motion.span>
 
@@ -95,7 +85,7 @@ export default function ExperienceSection() {
                   
                   <motion.div style={{ opacity: paragraphOpacity, y: paragraphY }}>
                     <motion.p style={{ color: textColor }} className="text-xs sm:text-sm md:text-base font-light leading-[1.8] md:leading-[1.9] tracking-wide opacity-80 max-w-md drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
-                      Sampan Highway Inn sits on the route you already take — for business, for family visits, for the long drive home. Express Highway Inn Club & Lounge membership turns that stop from a convenience into a standing arrangement: your table, your room, your rate, ready before you arrive.
+                      Sampan Highway Inn sits on the route you already take - for business, for family visits, for the long drive home. Express Highway Inn Club & Lounge membership turns that stop from a convenience into a standing arrangement: your table, your room, your rate, ready before you arrive.
                     </motion.p>
                   </motion.div>
 

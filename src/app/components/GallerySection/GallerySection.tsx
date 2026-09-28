@@ -22,11 +22,11 @@ const galleryImages = [
   { src: "/images/carwash.jpeg", alt: "Car Wash", span: "", label: "Auto Car Wash" },
   { src: "/images/Image.jpg", alt: "Nighttime Exterior", span: "", label: "Nighttime Exterior" },
   { src: "/images/Imasge-Edit-12.jpg", alt: "Spa Treatment", span: "md:col-span-2", label: "Spa Treatment" },
-  { src: "https://images.unsplash.com/photo-1551105378-78c8d5f8d4bbc?q=80&w=1200&auto=format&fit=crop", alt: "Lobby Staircase", span: "", label: "Grand Staircase" },
+  { src: "/images/istockphoto-109727081-612x612.webp", alt: "Lobby Staircase", span: "", label: "Grand Staircase" },
   { src: "/images/rooms.jpg", alt: "Cigar Lounge", span: "", label: "Cigar Lounge" },
   { src: "/images/bar.jpg", alt: "Wine Cellar", span: "md:col-span-2 md:row-span-2", label: "Wine Cellar" },
   { src: "/images/game.jpg", alt: "Games Room", span: "", label: "Games Room" },
-  { src: "https://images.unsplash.com/photo-1551024601-bec78aea8b3f?q=80&w=1200&auto=format&fit=crop", alt: "Bedroom Detail", span: "", label: "Suite Details" },
+  { src: "/images/Elysium_Maisonettes_0014-Edit-1-800x600.jpg", alt: "Bedroom Detail", span: "", label: "Suite Details" },
   { src: "/images/days.jpeg", alt: "Gold Architectural Detail", span: "md:col-span-2", label: "Architectural Details" },
   { src: "/images/evcarcharging.jpeg", alt: "EV Charging Station", span: "", label: "EV Charging" },
   { src: "/images/gym.jpg", alt: "Fitness Center", span: "", label: "Fitness Center" },
@@ -118,7 +118,7 @@ export default function GallerySection() {
             <div className="flex items-center gap-4">
               <div className="w-12 md:w-16 h-px bg-[#C5A059]" />
               <span className="text-[#987D3E] text-[10px] md:text-xs tracking-[0.4em] uppercase font-light whitespace-nowrap">
-                06 — Gallery
+                06 - Gallery
               </span>
             </div>
             <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-[#0B0B0D] leading-[0.9] tracking-[-0.02em] font-normal">

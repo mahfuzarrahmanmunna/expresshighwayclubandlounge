@@ -4,6 +4,8 @@ import { motion, useScroll, useTransform, useSpring, useReducedMotion, useMotion
 import Image from "next/image";
 import { useRef, useEffect, useState, MouseEvent } from "react";
 
+const smoothEase = [0.22, 1, 0.36, 1] as const;
+
 export default function MembershipSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
@@ -12,16 +14,31 @@ export default function MembershipSection() {
 
   useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
+    
+    // Debounce resize event for better performance
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const debouncedCheck = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkDesktop, 150);
+    };
+
     checkDesktop();
-    window.addEventListener("resize", checkDesktop);
-    return () => window.removeEventListener("resize", checkDesktop);
+    window.addEventListener("resize", debouncedCheck);
+    return () => {
+      window.removeEventListener("resize", debouncedCheck);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-  const progress = useSpring(scrollYProgress, { stiffness: 180, damping: 30, mass: 0.25 });
-
-  const headerY = useTransform(progress, [0, 0.1, 0.9, 1], [0, -10, -10, -30]);
-  const headerOpacity = useTransform(progress, [0, 0.1, 0.9, 1], [1, 1, 1, 0.8]);
+  
+  // Smoother spring for scroll tracking
+  const progress = useSpring(scrollYProgress, { 
+    stiffness: 80, 
+    damping: 25, 
+    mass: 0.5,
+    restDelta: 0.001 
+  });
 
   const cardsY = useTransform(progress, [0, 0.15, 0.9, 1], [30, 0, 0, -20]);
   const cardsOpacity = useTransform(progress, [0, 0.08], [0.85, 1]);
@@ -37,8 +54,20 @@ export default function MembershipSection() {
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const smoothMouseX = useSpring(mouseX, { stiffness: 150, damping: 20, mass: 0.5 });
-  const smoothMouseY = useSpring(mouseY, { stiffness: 150, damping: 20, mass: 0.5 });
+  
+  // Smoother spring for mouse parallax
+  const smoothMouseX = useSpring(mouseX, { 
+    stiffness: 80, 
+    damping: 20, 
+    mass: 0.8,
+    restDelta: 0.001 
+  });
+  const smoothMouseY = useSpring(mouseY, { 
+    stiffness: 80, 
+    damping: 20, 
+    mass: 0.8,
+    restDelta: 0.001 
+  });
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (prefersReducedMotion || !isDesktop) return;
@@ -56,7 +85,7 @@ export default function MembershipSection() {
   // Single Unified Card Visual
   const CardVisual = () => {
     return (
-      <div className="relative w-full h-full">
+      <div className="relative w-full h-full will-change-transform">
         {/* Ultra-Luxurious Soft Gold Drop Shadow */}
         <div className="absolute -inset-8 rounded-3xl bg-[#C5A059] opacity-20 blur-3xl pointer-events-none" />
         
@@ -129,19 +158,12 @@ export default function MembershipSection() {
             style={{ opacity: contentOpacity, y: contentY }}
             className="flex flex-col gap-8 md:pr-8 order-2 md:order-1"
           >
-            <div className="flex flex-col gap-6">
-              {/* <div className="flex items-center gap-4">
-                <div className="w-12 md:w-16 h-px bg-[#C5A059]" />
-                <span className="text-[#987D3E] text-[10px] md:text-xs tracking-[0.4em] uppercase font-light whitespace-nowrap">
-                  02 — The Membership
-                </span>
-              </div> */}
-              
+            <div className="flex flex-col gap-6">              
               <h2 className="font-serif text-[2.5rem] sm:text-6xl md:text-7xl lg:text-8xl text-[#0B0B0D] leading-[0.9] tracking-[-0.02em] font-normal text-center md:text-left">
-                <span className="block overflow-hidden mb-2 pb-[0.1em]">
+                <span className="block overflow-hidden mb-2 pb-[0.1em] will-change-transform">
                   <motion.span style={{ y: textMaskY }} className="block">The Art of</motion.span>
                 </span>
-                <span className="block overflow-hidden pb-[0.1em]">
+                <span className="block overflow-hidden pb-[0.1em] will-change-transform">
                   <motion.span
                     style={{ y: textMaskY }}
                     transition={{ delay: 0.2 }}
@@ -172,7 +194,7 @@ export default function MembershipSection() {
           {/* Right Column: The Display Case (Card) */}
           <motion.div 
             style={{ y: cardsY, opacity: cardsOpacity, scale: cardsScale }} 
-            className="w-full max-w-[500px] mx-auto [transform-style:preserve-3d] order-1 md:order-2"
+            className="w-full max-w-[500px] mx-auto [transform-style:preserve-3d] order-1 md:order-2 will-change-transform"
           >
             <motion.div 
               style={{ rotateY: -4, rotateZ: -1, transformStyle: "preserve-3d" }} 
@@ -180,12 +202,12 @@ export default function MembershipSection() {
             >
               <motion.div 
                 style={{ rotateX: leftMouseRotateX, rotateY: leftMouseRotateY }} 
-                className="w-full [transform-style:preserve-3d]"
+                className="w-full [transform-style:preserve-3d] will-change-transform"
               >
                 <motion.div 
-                  className="relative w-full aspect-[1.6/1]" 
+                  className="relative w-full aspect-[1.6/1] will-change-transform" 
                   animate={prefersReducedMotion ? {} : { y: [0, -12, 0] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 9, repeat: Infinity, ease: smoothEase }}
                 >
                   <CardVisual />
                 </motion.div>

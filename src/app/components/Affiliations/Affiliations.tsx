@@ -23,27 +23,6 @@ const itemVariants = {
   },
 };
 
-/* ── Data (Kept outside component to prevent re-renders) ── */
-const affiliations = [
-  { num: "01", name: "Real Estate & Housing Association of Bangladesh", logo: "/images/affiliation/rehab.png" },
-  { num: "02", name: "Federation of Bangladesh Chambers of Commerce & Industry (FBCCI)", logo: "/images/affiliation/fbcci.png" },
-  { num: "03", name: "Bangladesh Reconditioned Vehicles Importers & Dealers Assoc. (BARVIDA)", logo: "/images/affiliation/barvia.png" },
-  { num: "04", name: "Bangladesh Arm's Dealer and Importer Association", logo: "/images/affiliation/bad.png" },
-  { num: "05", name: "Bangladesh PABX Association", logo: "/images/affiliation/pabx.png" },
-  { num: "06", name: "Bangladesh LPG Autogas Station Owner’s Association", logo: "/images/affiliation/lpg.png" },
-  { num: "07", name: "Bangladesh Volleyball Federation (AD-Hoc Community)", logo: "/images/affiliation/bvf.png" },
-  { num: "08", name: "Barisal Bulls", logo: "/images/affiliation/barishalbulls.png" },
-  { num: "09", name: "Barisal Club (1864)", logo: "/images/affiliation/lis.png" },
-  { num: "10", name: "Bangladesh Premier League (BPL)", logo: "/images/affiliation/bpl.png" },
-  { num: "11", name: "Mercedes-Benz", logo: "/images/affiliation/mercedes.png" },
-  { num: "12", name: "Chartered Institute of Procurement & Supply UK (CIPS)", logo: "/images/affiliation/cips.png" },
-  { num: "13", name: "Directorate General Defence Purchase (DGDP)", logo: "/images/affiliation/dgdp.png" },
-  { num: "14", name: "Shooter's Shooting Club", logo: "/images/affiliation/shoot.png" },
-  { num: "15", name: "Express Highway Club And Lounge", logo: "/images/affiliation/EHCl.png" },
-  { num: "16", name: "Bangladesh Archery Federation", logo: "/images/affiliation/Archery.png" },
-  { num: "17", name: "Sampan Golf Academy", logo: "/images/affiliation/Sampan Golf Academy.png" },
-];
-
 export default function Affiliations() {
   return (
     <section className="relative z-10 w-full bg-[#F7F5F0] py-24 md:py-32 overflow-hidden">
@@ -89,7 +68,6 @@ export default function Affiliations() {
         </div>
 
         {/* --- Architectural Seamless Grid --- */}
-        {/* Changed to lg:grid-cols-5 for 5 cards per row on large screens */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -97,43 +75,279 @@ export default function Affiliations() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px bg-[#0B0B0D]/10 border border-[#0B0B0D]/10"
         >
-          {affiliations.map((item, i) => (
-            <motion.div
-              key={`${item.num}-${i}`}
-              variants={itemVariants}
-              className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden"
-            >
-              {/* Subtle Gold Backdrop on Hover */}
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
-              
-              {/* Architectural Index */}
-              <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">
-                {item.num}
-              </span>
-
-              {/* Logo Wrapper - Extremely slow, elegant scale */}
-              <div className="relative w-full h-10 md:h-14 flex items-center justify-center mb-6 z-10">
-                <Image
-                  src={item.logo}
-                  alt={item.name}
-                  fill
-                  sizes="(max-width: 768px) 50vw, 20vw"
-                  loading="lazy"
-                  className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
-                />
+          
+          {/* 01 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">01</span>
+            <div className="relative w-full h-10 md:h-14 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/rehab.png" alt="Real Estate & Housing Association of Bangladesh" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Real Estate & Housing Association of Bangladesh
+                </p>
               </div>
+            </div>
+          </motion.div>
 
-              {/* Name - Elegant, larger text size, centered at bottom */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
-                <div className="overflow-hidden">
-                  {/* Increased text size to text-[11px] sm:text-xs lg:text-sm and relaxed tracking slightly */}
-                  <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
-                    {item.name}
-                  </p>
-                </div>
+          {/* 02 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">02</span>
+            <div className="relative w-full h-10 md:h-14 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/fbcci.png" alt="Federation of Bangladesh Chambers of Commerce & Industry (FBCCI)" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Federation of Bangladesh Chambers of Commerce & Industry (FBCCI)
+                </p>
               </div>
-            </motion.div>
-          ))}
+            </div>
+          </motion.div>
+
+          {/* 03 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">03</span>
+            <div className="relative w-full h-10 md:h-14 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/barvia.png" alt="Bangladesh Reconditioned Vehicles Importers & Dealers Assoc. (BARVIDA)" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Bangladesh Reconditioned Vehicles Importers & Dealers Assoc. (BARVIDA)
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 04 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">04</span>
+            <div className="relative w-full h-10 md:h-18 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/bad.png" alt="Bangladesh Arm's Dealer and Importer Association" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Bangladesh Arm's Dealer and Importer Association
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 05 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">05</span>
+            <div className="relative w-full h-10 md:h-18 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/pabx.png" alt="Bangladesh PABX Association" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Bangladesh PABX Association
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 06 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">06</span>
+            <div className="relative w-full h-10 md:h-14 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/lpg.png" alt="Bangladesh LPG Autogas Station Owner’s Association" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Bangladesh LPG Autogas Station Owner’s Association
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 07 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">07</span>
+            <div className="relative w-full h-10 md:h-18 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/bvf.png" alt="Bangladesh Volleyball Federation (AD-Hoc Community)" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Bangladesh Volleyball Federation (AD-Hoc Community)
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 08 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">08</span>
+            <div className="relative w-full h-10 md:h-18 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/barishalbulls.png" alt="Barisal Bulls" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Barisal Bulls
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 09 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">09</span>
+            <div className="relative w-full h-10 md:h-18 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/lis.png" alt="Barisal Club (1864)" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Barisal Club (1864)
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 10 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">10</span>
+            <div className="relative w-full h-10 md:h-18 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/bpl.png" alt="Bangladesh Premier League (BPL)" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Bangladesh Premier League (BPL)
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 11 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">11</span>
+            <div className="relative w-full h-10 md:h-18 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/mercedes.png" alt="Mercedes-Benz" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Mercedes-Benz
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 12 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">12</span>
+            <div className="relative w-full h-10 md:h-14 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/cips.png" alt="Chartered Institute of Procurement & Supply UK (CIPS)" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Chartered Institute of Procurement & Supply UK (CIPS)
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 13 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">13</span>
+            <div className="relative w-full h-10 md:h-18 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/dgdp.png" alt="Directorate General Defence Purchase (DGDP)" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Directorate General Defence Purchase (DGDP)
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 14 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">14</span>
+            <div className="relative w-full h-10 md:h-14 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/shoot.png" alt="Shooter's Shooting Club" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Shooter&apos;s Shooting Club
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 15 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">15</span>
+            <div className="relative w-full h-10 md:h-19 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/EHCl.png" alt="Express Highway Club And Lounge" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Express Highway Club And Lounge
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 16 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">16</span>
+            <div className="relative w-full h-10 md:h-18 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/Archery.png" alt="Bangladesh Archery Federation" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Bangladesh Archery Federation
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 17 */}
+          <motion.div variants={itemVariants} className="group relative bg-[#F7F5F0] aspect-[5/4] flex flex-col items-center justify-center p-6 md:p-8 overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(197,160,89,0.05),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"></div>
+            <span className="absolute top-4 left-4 text-[#0B0B0D]/20 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] font-light transition-colors duration-500 z-10">17</span>
+            <div className="relative w-full h-10 md:h-18 flex items-center justify-center mb-6 z-10">
+              <Image src="/images/affiliation/Sampan Golf Academy.png" alt="Sampan Golf Academy" fill sizes="(max-width: 768px) 50vw, 20vw" loading="lazy" className="object-contain transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110" />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-4 text-center z-10">
+              <div className="overflow-hidden">
+                <p className="text-[11px] sm:text-xs lg:text-sm leading-snug font-light tracking-[0.05em] text-[#0B0B0D]/40 group-hover:text-[#0B0B0D]/70 transition-colors duration-500 line-clamp-2">
+                  Sampan Golf Academy
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
         </motion.div>
 
       </div>

@@ -108,7 +108,7 @@ export default function TheInnSection() {
             >
               <div className="w-10 md:w-16 h-px bg-[#C5A059]" />
               <span className="text-[#C5A059] text-[10px] md:text-xs tracking-[0.4em] uppercase font-light whitespace-nowrap">
-                04 — The Inn
+                04 - The Inn
               </span>
             </motion.div>
 

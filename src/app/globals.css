@@ -19,12 +19,12 @@
   }
 
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
   }
 
   body {
     @apply bg-bg-dark text-bg-softwhite font-sans antialiased;
-    background-image: radial-gradient(circle at top, rgba(197, 160, 89, 0.075), transparent 38%);
+    background: #0b0b0d;
     overscroll-behavior-y: none;
   }
 

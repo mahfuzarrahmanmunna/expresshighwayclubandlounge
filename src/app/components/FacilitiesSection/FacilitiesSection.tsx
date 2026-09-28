@@ -31,7 +31,7 @@ const facilities = [
     number: "03", 
     name: "Wellness on the road", 
     label: "Health & Recreation", 
-    description: "Salon & Spa, Gym, and Pool access included — a proper reset between legs of a long drive.", 
+    description: "Salon & Spa, Gym, and Pool access included - a proper reset between legs of a long drive.", 
     image: "/images/spa.jpeg" 
   },
   { 
@@ -55,8 +55,8 @@ const facilities = [
     number: "06", 
     name: "Billiards, Cards & Bar", 
     label: "Social Entertainment", 
-    description: "Billiards, the Card Room, and the Juice & Drinks Bar — somewhere to sit down properly before the next leg.", 
-    image: "/images/billiards.jpeg" 
+    description: "Billiards, the Card Room, and the Juice & Drinks Bar - somewhere to sit down properly before the next leg.", 
+    image: "/images/Billiards.jpeg" 
   },
   { 
     id: 7, 
@@ -79,51 +79,101 @@ export default function FacilitiesHorizontalSection() {
     if (!section || !track) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      section.style.height = "auto";
-      track.style.transform = "none";
-      track.style.overflowX = "auto";
-      track.style.scrollSnapType = "x mandatory";
-      return;
-    }
-
+    
     const ctx = gsap.context(() => {
+      if (reduceMotion) {
+        section.style.height = "auto";
+        track.style.transform = "none";
+        track.style.overflowX = "auto";
+        track.style.scrollSnapType = "x mandatory";
+        return;
+      }
+
       const images = section.querySelectorAll("img");
       const getScrollAmount = () => track.scrollWidth - window.innerWidth;
 
+      // Scrub set to 2 for a more premium, weighted smooth feel
       const tween = gsap.to(track, {
         x: () => -getScrollAmount(),
         ease: "none",
         scrollTrigger: {
-          trigger: section, start: "top top", end: () => `+=${getScrollAmount()}`, scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true,
+          trigger: section, 
+          start: "top top", 
+          end: () => `+=${getScrollAmount()}`, 
+          scrub: 2, 
+          pin: true, 
+          anticipatePin: 1, 
+          invalidateOnRefresh: true,
         },
       });
 
       if (progressRef.current) {
         gsap.to(progressRef.current, {
-          scaleX: 1, ease: "none",
-          scrollTrigger: { trigger: section, start: "top top", end: () => `+=${getScrollAmount()}`, scrub: 1 },
+          scaleX: 1, 
+          ease: "none",
+          scrollTrigger: { 
+            trigger: section, 
+            start: "top top", 
+            end: () => `+=${getScrollAmount()}`, 
+            scrub: 2 
+          },
         });
       }
 
       const clouds = section.querySelectorAll(".cloud-layer");
       clouds.forEach((cloud, index) => {
-        gsap.to(cloud, { x: index % 2 === 0 ? "15%" : "-15%", duration: 25 + index * 10, repeat: -1, yoyo: true, ease: "sine.inOut" });
+        gsap.to(cloud, { 
+          x: index % 2 === 0 ? "15%" : "-15%", 
+          duration: 25 + index * 10, 
+          repeat: -1, 
+          yoyo: true, 
+          ease: "sine.inOut" 
+        });
       });
 
-      const cardImages = section.querySelectorAll(".card-image");
-      cardImages.forEach((img) => {
-        gsap.to(img, { x: "-2%", ease: "none", scrollTrigger: { trigger: img, start: "left center", end: "right center", horizontal: false, scrub: 1, containerAnimation: tween } });
+      // Enhanced continuous parallax
+      const cards = section.querySelectorAll("article");
+      cards.forEach((card) => {
+        const imgWrapper = card.querySelector(".card-image");
+        if (imgWrapper) {
+          gsap.to(imgWrapper, { 
+            x: "-4%", 
+            ease: "none", 
+            scrollTrigger: { 
+              trigger: card, 
+              start: "left right", 
+              end: "right left", 
+              horizontal: false, 
+              scrub: 2, 
+              containerAnimation: tween 
+            } 
+          });
+        }
       });
 
-      images.forEach((img) => { img.addEventListener("load", () => ScrollTrigger.refresh()); });
-      const onResize = () => ScrollTrigger.refresh();
+      // Debounced refresh to prevent stutter when images load
+      let refreshTimeout: ReturnType<typeof setTimeout>;
+      const debouncedRefresh = () => {
+        clearTimeout(refreshTimeout);
+        refreshTimeout = setTimeout(() => ScrollTrigger.refresh(), 200);
+      };
+
+      images.forEach((img) => {
+        if (img.complete) debouncedRefresh();
+        else img.addEventListener("load", debouncedRefresh);
+      });
+
+      const onResize = () => debouncedRefresh();
       window.addEventListener("resize", onResize);
+      
       return () => window.removeEventListener("resize", onResize);
     }, sectionRef);
 
     const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 200);
-    return () => { clearTimeout(refreshTimer); ctx.revert(); };
+    return () => { 
+      clearTimeout(refreshTimer); 
+      ctx.revert(); 
+    };
   }, []);
 
   return (
@@ -131,9 +181,9 @@ export default function FacilitiesHorizontalSection() {
       
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-0 right-0 w-[50%] h-[50%] bg-[radial-gradient(circle_at_80%_0%,_rgba(197,160,89,0.13),transparent_35%)]" />
-        <div className="cloud-layer absolute top-[5%] left-[-10%] w-[120%] h-[40%] bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.8),transparent_60%)] blur-3xl opacity-60" />
-        <div className="cloud-layer absolute top-[30%] left-[-20%] w-[140%] h-[30%] bg-[radial-gradient(ellipse_at_center,_rgba(248,246,240,0.6),transparent_60%)] blur-3xl opacity-50" />
-        <div className="cloud-layer absolute bottom-0 left-[-10%] w-[100%] h-[40%] bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.5),transparent_60%)] blur-2xl opacity-40" />
+        <div className="cloud-layer absolute top-[5%] left-[-10%] w-[120%] h-[40%] bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.8),transparent_60%)] blur-3xl opacity-60 will-change-transform" />
+        <div className="cloud-layer absolute top-[30%] left-[-20%] w-[140%] h-[30%] bg-[radial-gradient(ellipse_at_center,_rgba(248,246,240,0.6),transparent_60%)] blur-3xl opacity-50 will-change-transform" />
+        <div className="cloud-layer absolute bottom-0 left-[-10%] w-[100%] h-[40%] bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,0.5),transparent_60%)] blur-2xl opacity-40 will-change-transform" />
         <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[18vw] text-[#0B0B0D]/[0.025] whitespace-nowrap pointer-events-none select-none leading-none">THE JOURNEY</span>
       </div>
 
@@ -148,15 +198,15 @@ export default function FacilitiesHorizontalSection() {
         </div>
       </div>
 
-      <div className="absolute top-0 left-0 h-full flex items-center z-10 will-change-transform">
-        <div ref={trackRef} className="flex items-center gap-8 md:gap-10 pl-6 md:pl-16 pr-[10vw]">
+      <div className="absolute top-0 left-0 h-full flex items-center z-10">
+        <div ref={trackRef} className="flex items-center gap-8 md:gap-10 pl-6 md:pl-16 pr-[10vw] will-change-transform">
           
           {/* Intro Panel */}
           <div className="flex-shrink-0 w-[85vw] md:w-[50vw] lg:w-[40vw] h-[76vh] md:h-[82vh] flex flex-col justify-center pr-8 md:pr-20 border-r border-[#0B0B0D]/[0.12] relative">
             <div className="absolute top-0 right-8 w-px h-12 bg-[#C5A059]" />
             <div className="flex items-center gap-6 mb-8">
               <div className="w-12 h-px bg-[#C5A059]" />
-              <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-sans font-light whitespace-nowrap">03 — Membership</span>
+              <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-sans font-light whitespace-nowrap">03 - Membership</span>
             </div>
             <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-[#0B0B0D] leading-[0.9] tracking-[-0.02em] mb-10 font-normal">
               Why Members <br/> Choose <br/>
@@ -176,12 +226,23 @@ export default function FacilitiesHorizontalSection() {
           {/* Cards */}
           {facilities.map((facility, index) => (
             <article key={facility.id} className="group relative flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[33vw] h-[76vh] md:h-[82vh] rounded-[8px] overflow-hidden border border-[#C5A059]/30 shadow-[0_20px_60px_rgba(17,17,17,0.08)] transition-all duration-700 hover:border-[#C5A059]/60 cursor-pointer">
-              <div className="card-image absolute inset-0 overflow-hidden">
-                <Image src={facility.image} alt={facility.name} fill priority={index === 0} sizes="(max-width: 768px) 85vw, 33vw" className="object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.035]" />
+              
+              {/* Extended wrapper for seamless parallax movement */}
+              <div className="card-image absolute w-[110%] -left-[5%] top-0 bottom-0 overflow-hidden will-change-transform">
+                <Image 
+                  src={facility.image} 
+                  alt={facility.name} 
+                  fill 
+                  priority={index === 0} 
+                  sizes="(max-width: 768px) 85vw, 33vw" 
+                  className="object-cover object-center transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.035]" 
+                />
               </div>
+              
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0D]/50 via-transparent to-transparent" />
               <div className="absolute inset-0 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.25)] pointer-events-none" />
               <span className="absolute bottom-[8%] right-[8%] font-serif text-[8rem] text-[#0B0B0D]/[0.08] leading-none pointer-events-none select-none transition-opacity duration-700 group-hover:text-[#0B0B0D]/[0.12]">{facility.number}</span>
+              
               <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-12 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1">
                 <div className="flex flex-col gap-2 mb-4">
                   <span className="text-[#C5A059] text-[10px] tracking-[0.4em] uppercase font-sans font-light">{facility.number} <span className="text-white/50">/ {facility.label}</span></span>
@@ -189,6 +250,7 @@ export default function FacilitiesHorizontalSection() {
                 <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl text-white tracking-[-0.02em] leading-[0.95] mb-3 font-normal">{facility.name}</h3>
                 <p className="text-white/80 text-xs md:text-sm font-sans font-light leading-[1.8] tracking-wide max-w-[320px] opacity-80 group-hover:opacity-100 transition-opacity duration-500">{facility.description}</p>
               </div>
+
               <div className="absolute bottom-8 right-8 md:bottom-12 md:right-12 z-20 flex items-center gap-3">
                 <span className="text-white/60 group-hover:text-[#C5A059] text-[9px] tracking-[0.3em] uppercase font-sans transition-colors duration-500">View</span>
                 <span className="text-white/60 group-hover:text-[#C5A059] text-base transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1.5">→</span>
@@ -202,7 +264,7 @@ export default function FacilitiesHorizontalSection() {
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 w-[50%] max-w-md flex items-center gap-4 pointer-events-none">
         <span className="text-[#0B0B0D]/40 text-[9px] tracking-[0.3em] font-sans">01</span>
         <div className="relative flex-1 h-px bg-[#0B0B0D]/[0.12] overflow-hidden">
-          <div ref={progressRef} className="absolute top-0 left-0 w-full h-full bg-[#C5A059] origin-left scale-x-0" />
+          <div ref={progressRef} className="absolute top-0 left-0 w-full h-full bg-[#C5A059] origin-left scale-x-0 will-change-transform" />
         </div>
         <span className="text-[#0B0B0D]/40 text-[9px] tracking-[0.3em] font-sans">07</span>
       </div>
